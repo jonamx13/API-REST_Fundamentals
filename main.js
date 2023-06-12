@@ -1,6 +1,7 @@
 console.log('Hello world');
 
-const API_URL = 'https://api.thedogapi.com/v1/images/search?limit=09';
+const API_URL = 'https://api.thedogapi.com/v1/images/search?limit=18&api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
+const doggosSection = document.getElementById('dog-grid');
 
 /* fetch(URL)
     .then(res => res.json())
@@ -39,7 +40,6 @@ async function getData() {
 }
 
 async function dogGrid(collection) {
-    const doggosSection = document.getElementById('dog-grid');
     const data = await collection;
     
     Object.entries(data).forEach(thumbnail => {
