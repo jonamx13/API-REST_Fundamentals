@@ -1,27 +1,105 @@
+:root {
+    --blue: #537188;
+    --yellow-dark: #CBB279;
+    --yellow-light: #e1d4bb;
+    --light-gray: #eeeeee;
+    --white: #fff;
+}
+
 * {
     font-size: 62.5%;
     box-sizing: border-box;
     padding: 0;
 }
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 h1 {
     font-size: 5rem;
 }
-#dog-grid {
+
+button {
+    width: 15rem;
+    height: 3rem;
+    border-radius: 1.5rem;
+    border-style: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.subtitles {
+    font-size: 3rem;
+}
+
+.doggo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.doggo-card h3 {
+    font-size: 1.7rem;
+}
+.doggo-card p {
+    font-size: 1.7rem;
+}
+.doggo-container {
+    position: relative;
+    width: 20rem;
+    height: 20rem;
+    margin: 0 auto;
+}
+.doggo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1.5rem;
+}
+
+.pin-save {
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    background: var(--yellow-dark);
+    border-radius: 1rem;
+    right: .5rem;
+    top: .5rem;
+    cursor: pointer;
+}
+.pin-save img {
+    width: 50%;
+    height: 50%;
+}
+
+.reload {
+    background: var(--blue);
+    color: var(--yellow-light);
+}
+.dog-grid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(4, minmax(3rem, 1fr));
     gap: 1rem;
     
     margin: 0 auto;
-    width: 100%;
+    width: 80%;
     height: 100%;
 }
 
-img {
-    width: 15rem;
-    height: 15rem;
-    margin: 0 auto;
-    object-fit: cover;
-    border-radius: 2rem;
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .dog-grid {
+        grid-template-columns: repeat(3, minmax(3rem, 1fr));
+    }
 }
 
+@media screen and (max-width: 768px) {
+    .doggo-container {
+        position: relative;
+        width: 13rem;
+        height: 13rem;
+        margin: 0 auto;
+    }
+    .dog-grid {
+        grid-template-columns: repeat(2, minmax(3rem, 1fr));
+    }
+}
