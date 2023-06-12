@@ -1,10 +1,14 @@
 console.log('Hello world');
 
-const API_URL = 'https://api.thedogapi.com/v1/images/search?limit=18&api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
+const API_URL_RANDOM = 'https://api.thedogapi.com/v1/images/search?limit=18';
+const API_URL_FAVOURITES = 'https://api.thedogapi.com/v1/favourites?limit=18';
+const API_KEY = '&api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
 const randomDoggos = document.getElementById('random-doggos');
 const favouriteDoggos = document.getElementById('favourite-doggos');
 
-dogGrid(getData());
+dogRandomGrid(getData(API_URL_RANDOM, API_KEY));
+dogFavsGrid(getData(API_URL_FAVOURITES));
+
 
 function reload() {
     window.location.reload();
@@ -39,17 +43,24 @@ function createCard(urlDoggo, sectionID, pinMode) {
     doggoContainer.append(imgDoggo, pinSave);
 }
 
-async function getData() {
-    const res = await fetch(API_URL);
+async function getData(ApiURL, ApiKey) {
+    const res = await fetch(ApiURL + ApiKey);
     const data = await res.json();
 
     return data;
 }
 
-async function dogGrid(collection) {
+async function dogRandomGrid(collection) {
     const data = await collection;
     
     Object.entries(data).forEach(thumbnail => {
         createCard(thumbnail[1].url, randomDoggos,'save');
+    });
+}
+async function dogFavsGrid(collection) {
+    const data = await collection;
+    
+    Object.entries(data).forEach(thumbnail => {
+        createCard(thumbnail[1].url, favouriteDoggos,'save');
     });
 }
