@@ -13,7 +13,7 @@ function reload() {
     window.location.reload();
 }
 
-function createCard(urlDoggo, sectionID, pinMode) {
+function createCard(urlDoggo, sectionID, pinMode, cardID) {
     const doggosSection = sectionID;
     const doggoCard = document.createElement('article');
     const doggoContainer = document.createElement('div');
@@ -27,7 +27,7 @@ function createCard(urlDoggo, sectionID, pinMode) {
     imgDoggo.setAttribute('class', 'doggo');
     imgDoggo.setAttribute('alt', 'doggo-picture');
     pinSave.setAttribute('class', 'pin-save');
-    pinSave.setAttribute('onclick', 'saveFavDogs()');
+    pinSave.onclick = () => saveFavDogs(cardID);
 
     imgDoggo.src = urlDoggo;
     //Select pin icon
@@ -69,8 +69,8 @@ async function loadDogRandomGrid(ApiURL, ApiKey) {
     }
 
     Object.entries(data).forEach(thumbnail => {
-        console.log(thumbnail);
-        createCard(thumbnail[1].url, randomDoggos,'save');
+        console.log(thumbnail)
+        createCard(thumbnail[1].url, randomDoggos,'save', thumbnail[1].id);
     });
 }
 async function loadDogFavsGrid(ApiURL, ApiKey) {
@@ -84,14 +84,16 @@ async function loadDogFavsGrid(ApiURL, ApiKey) {
         favouriteDoggos.appendChild(spanError);
         return;
     }
+
+    console.log('tortilla')
     console.log(data);
-    // Object.entries(data).forEach(thumbnail => {
-    //     createCard(thumbnail[1].url, favouriteDoggos,'save');
-    // });
+    Object.entries(data).forEach(thumbnail => {
+        console.log(thumbnail)
+        createCard(thumbnail[1].image.url, favouriteDoggos,'unsave');
+    });
 }
 
-async function saveFavDogs() {
-    console.log('cosa');
+async function saveFavDogs(id) {
     const API = API_URL_FAVOURITES + API_KEY;
     const res = await fetch(API, {
     method: 'POST',
@@ -99,10 +101,9 @@ async function saveFavDogs() {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      image_id: 'Tu1CbaVud'
+      image_id: id
     }),
   });
-    const data = await res.json();
 
     console.log('Save');
     console.log(res);
