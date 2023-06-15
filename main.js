@@ -1,12 +1,12 @@
-const API_URL_RANDOM = 'https://api.thedogapi.com/v1/images/search?limit=18';
-const API_URL_FAVOURITES = 'https://api.thedogapi.com/v1/favourites?limit=18';
+const API_URL_RANDOM = 'https://api.thedogapi.com/v1/images/search?limit=16';
+const API_URL_FAVOURITES = 'https://api.thedogapi.com/v1/favourites?limit=16';
 const API_KEY = '&api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
 const randomDoggos = document.getElementById('random-doggos');
 const favouriteDoggos = document.getElementById('favourite-doggos');
 
 
-loadDogRandomGrid(API_URL_RANDOM, API_KEY);
-loadDogFavsGrid(API_URL_FAVOURITES, API_KEY);
+loadDogRandomGrid(API_URL_RANDOM, API_KEY, randomDoggos);
+// loadDogFavsGrid(API_URL_FAVOURITES, API_KEY);
 
 
 function reload() {
@@ -43,34 +43,42 @@ function createCard(urlDoggo, sectionID, pinMode, cardID) {
     doggoContainer.append(imgDoggo, pinSave);
 }
 
+function createSpanError(dataResult, sectionID) {
+    console.log('Hola desde aqui')
+    const spanError = document.createElement('span');
+    const data = dataResult;
+
+        sectionID.removeAttribute('class');
+        spanError.setAttribute('class', 'subtitles');
+        spanError.innerHTML = data;
+        sectionID.appendChild(spanError);
+        return;
+}
+
 async function getData(ApiURL, ApiKey) {
     const API = ApiURL + ApiKey;
     const res = await fetch(API);
-    // const data = await res.json();
+    const data = await res.json();
     
     if(res.status !== 200) {
-        return 'There was an error: ' + res.status + data.message;
+        return 'There was an error: ' + data.message;
     } else {
-        const data = await res.json();
         return data;
     }
 }
 
-async function loadDogRandomGrid(ApiURL, ApiKey) {
+async function loadDogRandomGrid(ApiURL, ApiKey, sectionID) {
     const data = await getData(ApiURL, ApiKey);
 
     if (typeof data == 'string') {
-        const spanError = document.createElement('span');
-        randomDoggos.removeAttribute('class');
-        spanError.setAttribute('class', 'subtitles');
-        spanError.innerHTML = data;
-        randomDoggos.appendChild(spanError);
+        createSpanError(data, sectionID);
         return;
     }
 
     Object.entries(data).forEach(thumbnail => {
-        console.log(thumbnail)
-        createCard(thumbnail[1].url, randomDoggos,'save', thumbnail[1].id);
+        const [imageURL, imageID] = [thumbnail[1].url, thumbnail[1].id];
+
+        createCard(imageURL, sectionID,'save', imageID);
     });
 }
 async function loadDogFavsGrid(ApiURL, ApiKey) {
