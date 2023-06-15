@@ -4,8 +4,9 @@ const API_KEY = '&api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae
 const randomDoggos = document.getElementById('random-doggos');
 const favouriteDoggos = document.getElementById('favourite-doggos');
 
-dogRandomGrid(API_URL_RANDOM, API_KEY);
-// dogFavsGrid(getData(API_URL_FAVOURITES, API_KEY));
+
+loadDogRandomGrid(API_URL_RANDOM, API_KEY);
+loadDogFavsGrid(API_URL_FAVOURITES, API_KEY);
 
 
 function reload() {
@@ -26,6 +27,7 @@ function createCard(urlDoggo, sectionID, pinMode) {
     imgDoggo.setAttribute('class', 'doggo');
     imgDoggo.setAttribute('alt', 'doggo-picture');
     pinSave.setAttribute('class', 'pin-save');
+    pinSave.setAttribute('onclick', 'saveFavDogs()');
 
     imgDoggo.src = urlDoggo;
     //Select pin icon
@@ -42,34 +44,70 @@ function createCard(urlDoggo, sectionID, pinMode) {
 }
 
 async function getData(ApiURL, ApiKey) {
-    const res = await fetch(5 +ApiURL + ApiKey);
+    const API = ApiURL + ApiKey;
+    const res = await fetch(API);
+    // const data = await res.json();
     
     if(res.status !== 200) {
-        return 'There was an error: ' + res.status;
+        return 'There was an error: ' + res.status + data.message;
     } else {
         const data = await res.json();
         return data;
     }
 }
 
-async function dogRandomGrid(ApiURL, ApiKey) {
-    const data = await getData(ApiURL + ApiKey);
+async function loadDogRandomGrid(ApiURL, ApiKey) {
+    const data = await getData(ApiURL, ApiKey);
 
     if (typeof data == 'string') {
         const spanError = document.createElement('span');
+        randomDoggos.removeAttribute('class');
+        spanError.setAttribute('class', 'subtitles');
         spanError.innerHTML = data;
         randomDoggos.appendChild(spanError);
-        return
+        return;
     }
 
     Object.entries(data).forEach(thumbnail => {
+        console.log(thumbnail);
         createCard(thumbnail[1].url, randomDoggos,'save');
     });
 }
-async function dogFavsGrid(collection) {
-    const data = await collection;
-    
-    Object.entries(data).forEach(thumbnail => {
-        createCard(thumbnail[1].url, favouriteDoggos,'save');
-    });
+async function loadDogFavsGrid(ApiURL, ApiKey) {
+    const data = await getData(ApiURL, ApiKey);
+
+    if (typeof data == 'string') {
+        const spanError = document.createElement('span');
+        favouriteDoggos.removeAttribute('class');
+        spanError.setAttribute('class', 'subtitles');
+        spanError.innerHTML = data;
+        favouriteDoggos.appendChild(spanError);
+        return;
+    }
+    console.log(data);
+    // Object.entries(data).forEach(thumbnail => {
+    //     createCard(thumbnail[1].url, favouriteDoggos,'save');
+    // });
+}
+
+async function saveFavDogs() {
+    console.log('cosa');
+    const API = API_URL_FAVOURITES + API_KEY;
+    const res = await fetch(API, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      image_id: 'Tu1CbaVud'
+    }),
+  });
+    const data = await res.json();
+
+    console.log('Save');
+    console.log(res);
+
+    if (res.status !== 200) {
+        console.log('mames'); 
+    }
 }
