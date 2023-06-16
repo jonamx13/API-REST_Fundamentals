@@ -115,3 +115,18 @@ async function saveFavDogs(id) {
         console.log('There was an error: ' + data.message); 
     }
 }
+
+
+//TODO:
+async function deleteFavDogs(id) {
+    const API = API_URL_FAVOURITES + API_KEY;
+    const res = await fetch(API, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            image_id: id
+        }),
+    })
+};
