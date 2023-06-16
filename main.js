@@ -85,16 +85,10 @@ async function loadDogFavsGrid(ApiURL, ApiKey) {
     const data = await getData(ApiURL, ApiKey);
 
     if (typeof data == 'string') {
-        const spanError = document.createElement('span');
-        favouriteDoggos.removeAttribute('class');
-        spanError.setAttribute('class', 'subtitles');
-        spanError.innerHTML = data;
-        favouriteDoggos.appendChild(spanError);
+        createSpanError(data, sectionID);
         return;
     }
 
-    console.log('tortilla')
-    console.log(data);
     Object.entries(data).forEach(thumbnail => {
         console.log(thumbnail)
         createCard(thumbnail[1].image.url, favouriteDoggos,'unsave');
@@ -112,11 +106,12 @@ async function saveFavDogs(id) {
       image_id: id
     }),
   });
+  
 
     console.log('Save');
-    console.log(res);
 
     if (res.status !== 200) {
-        console.log('mames'); 
+        const data = await res.json();
+        console.log('There was an error: ' + data.message); 
     }
 }
