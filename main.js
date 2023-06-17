@@ -8,7 +8,7 @@ const randomDoggos = document.getElementById('random-doggos');
 const favouriteDoggos = document.getElementById('favourite-doggos');
 
 
-//loadDogRandomGrid(API_URL_RANDOM, API_KEY, randomDoggos);
+loadDogRandomGrid(API_URL_RANDOM, API_KEY, randomDoggos);
 loadDogFavsGrid(API_URL_FAVOURITES, API_KEY);
 
 
@@ -51,7 +51,6 @@ function createCard(urlDoggo, sectionID, pinMode, cardID) {
 }
 
 function createSpanError(dataResult, sectionID) {
-    console.log('Hola desde aqui')
     const spanError = document.createElement('span');
     const data = dataResult;
 
@@ -115,7 +114,6 @@ async function saveFavDogs(id) {
     }),
   });
   
-
     console.log('Save');
 
     if (res.status !== 200) {
