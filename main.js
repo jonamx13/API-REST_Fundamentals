@@ -1,17 +1,28 @@
 
 //TODO: Separate limit query from url's
-const API_URL_RANDOM = 'https://api.thedogapi.com/v1/images/search?limit=16';
+/* const API_URL_RANDOM = 'https://api.thedogapi.com/v1/images/search?limit=16';
 const API_URL_FAVOURITES = 'https://api.thedogapi.com/v1/favourites?limit=16';
 const API_KEY = '&api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
 const API_URL_FAVOURITES_DELETE = (id) => `https://api.thedogapi.com/v1/favourites/${id}?api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0`;
+*/
 const randomDoggos = document.getElementById('random-doggos');
 const favouriteDoggos = document.getElementById('favourite-doggos');
 
+const petChoose = {dog: 'dog', cat: 'cat'}; //TODO: pet selector
+const API_URL = 'https://api.thedogapi.com/v1/';
+// Endpoints
+const RANDOM_SEARCH = 'images/search';
+const FAVOURITES =  'favourites'
+const FAVOURITES_DELETE = (id) => `favourites/${id}`;
+// Parameters
+const QUANTITY = 'limit=16'; //TODO: limit selector
+const API_KEY = 'api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
 
-loadDogRandomGrid(API_URL_RANDOM, API_KEY, randomDoggos);
-loadDogFavsGrid(API_URL_FAVOURITES, API_KEY);
 
+loadDogRandomGrid('random', randomDoggos);
+loadDogFavsGrid('favourites', API_KEY);
 
+//TODO: refresh by card
 function reload() {
     window.location.reload();
 }
@@ -61,8 +72,18 @@ function createSpanError(dataResult, sectionID) {
         return;
 }
 
-async function getData(ApiURL, ApiKey) {
-    const API = ApiURL + ApiKey;
+function urlBuilder(action) {
+    const actionLowered = action.toString().toLowerCase();
+    let URL;
+    URL = {
+        'random' : API_URL + RANDOM_SEARCH + '?' + QUANTITY + '&' + API_KEY,
+        'favourites': API_URL + FAVOURITES + '?' + QUANTITY + '&' + API_KEY
+    }
+
+    return URL[actionLowered];
+}
+async function getData(ApiURL) {
+    const API = ApiURL;
     const res = await fetch(API);
     const data = await res.json();
     
@@ -73,8 +94,9 @@ async function getData(ApiURL, ApiKey) {
     }
 }
 
-async function loadDogRandomGrid(ApiURL, ApiKey, sectionID) {
-    const data = await getData(ApiURL, ApiKey);
+async function loadDogRandomGrid(behaviour, sectionID) {
+    const APIRandom = urlBuilder(behaviour);
+    const data = await getData(APIRandom);
 
     if (typeof data == 'string') {
         createSpanError(data, sectionID);
@@ -87,8 +109,10 @@ async function loadDogRandomGrid(ApiURL, ApiKey, sectionID) {
         createCard(imageURL, sectionID,'save', imageID);
     });
 }
-async function loadDogFavsGrid(ApiURL, ApiKey) {
-    const data = await getData(ApiURL, ApiKey);
+
+async function loadDogFavsGrid(behaviour, sectionID) {
+    const APIRandom = urlBuilder(behaviour);
+    const data = await getData(APIRandom);
 
     if (typeof data == 'string') {
         createSpanError(data, sectionID);
@@ -103,7 +127,7 @@ async function loadDogFavsGrid(ApiURL, ApiKey) {
 }
 
 async function saveFavDogs(id) {
-    const API = API_URL_FAVOURITES + API_KEY;
+    const API = urlBuilder('favourites');
     const res = await fetch(API, {
     method: 'POST',
     headers: {
@@ -124,6 +148,7 @@ async function saveFavDogs(id) {
     }
 }
 
+// TODO:
 async function deleteFavDogs(id) {
     const API = API_URL_FAVOURITES_DELETE(id);
     const res = await fetch(API, {
