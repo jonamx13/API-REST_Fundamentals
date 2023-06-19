@@ -17,10 +17,6 @@ body {
     align-items: center;
 }
 
-h1 {
-    font-size: 5rem;
-}
-
 button {
     width: 15rem;
     height: 3rem;
@@ -28,6 +24,9 @@ button {
     border-style: none;
     font-size: 1.5rem;
     font-weight: bold;
+}
+#title-name {
+    font-size: 5rem;
 }
 .subtitles {
     font-size: 3rem;
