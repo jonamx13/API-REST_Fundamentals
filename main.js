@@ -1,10 +1,4 @@
 
-//TODO: Separate limit query from url's
-/* const API_URL_RANDOM = 'https://api.thedogapi.com/v1/images/search?limit=16';
-const API_URL_FAVOURITES = 'https://api.thedogapi.com/v1/favourites?limit=16';
-const API_KEY = '&api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
-const API_URL_FAVOURITES_DELETE = (id) => `https://api.thedogapi.com/v1/favourites/${id}?api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0`;
-*/
 const randomDoggos = document.getElementById('random-doggos');
 const favouriteDoggos = document.getElementById('favourite-doggos');
 
@@ -72,12 +66,13 @@ function createSpanError(dataResult, sectionID) {
         return;
 }
 
-function urlBuilder(action) {
+function urlBuilder(action, photoID) {
     const actionLowered = action.toString().toLowerCase();
     let URL;
     URL = {
         'random' : API_URL + RANDOM_SEARCH + '?' + QUANTITY + '&' + API_KEY,
-        'favourites': API_URL + FAVOURITES + '?' + QUANTITY + '&' + API_KEY
+        'favourites': API_URL + FAVOURITES + '?' + QUANTITY + '&' + API_KEY,
+        'delete': API_URL + FAVOURITES_DELETE(photoID) + '?' + API_KEY 
     }
 
     return URL[actionLowered];
@@ -150,7 +145,7 @@ async function saveFavDogs(id) {
 
 // TODO:
 async function deleteFavDogs(id) {
-    const API = API_URL_FAVOURITES_DELETE(id);
+    const API = urlBuilder('delete', id);
     const res = await fetch(API, {
         method: 'DELETE'
     });
