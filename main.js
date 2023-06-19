@@ -1,12 +1,12 @@
-import { urlBuilder, getData, apiDictionary } from './js/apiActions.mjs';
-import { createSection, createCard, createSpanError } from './js/components.mjs';
+import { apiDictionary } from './js/apiActions.mjs';
+import { createSection, loadRandomGrid } from './js/components.mjs';
 
 const dictionary = apiDictionary('dog');
 let randomDoggos = createSection('Random doggos', true);
 const favouriteDoggos = createSection('Favourite doggos');
 
-//loadDogRandomGrid('random', randomDoggos);
-//loadDogFavsGrid('favourites', favouriteDoggos);
+loadRandomGrid(dictionary.random, randomDoggos);
+loadRandomGrid(dictionary.favourites, favouriteDoggos);
 
 //TODO: refresh by card
 /* function reload() {
@@ -15,8 +15,8 @@ const favouriteDoggos = createSection('Favourite doggos');
 
 // TODO: create section and add reload button only if does reload(false by default)
 
-async function loadDogRandomGrid(behaviour, sectionID) {
-    const APIRandom = urlBuilder(behaviour);
+/* async function loadDogRandomGrid(ApiURL, sectionID) {
+    const APIRandom = ApiURL;
     const data = await getData(APIRandom);
 
     if (typeof data == 'string') {
@@ -29,7 +29,7 @@ async function loadDogRandomGrid(behaviour, sectionID) {
         console.log(thumbnail);
         createCard(imageURL, sectionID,'save', imageID);
     });
-}
+} */
 
 /* async function loadDogFavsGrid(behaviour, sectionID) {
     const APIRandom = urlBuilder(behaviour);

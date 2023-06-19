@@ -1,4 +1,5 @@
 import { saveFavDogs, deleteFavDogs } from "./behaviours.mjs";
+import { getData } from "./apiActions.mjs";
 
 export function createSection(title, doesReload) {
     const titleSection = document.createElement('h2');
@@ -24,7 +25,7 @@ export function createSection(title, doesReload) {
 
 }
 
-export function createCard(urlDoggo, sectionID, pinMode, cardID) {
+function createCard(urlDoggo, sectionID, pinMode, cardID) {
     const doggosSection = sectionID;
     const doggoCard = document.createElement('article');
     const doggoContainer = document.createElement('div');
@@ -67,4 +68,26 @@ export function createSpanError(dataResult, sectionID) {
         spanError.innerHTML = data;
         sectionID.appendChild(spanError);
         return;
+}
+
+//Grid
+export async function loadRandomGrid(ApiURL, sectionID) {
+    const APISTR = ApiURL.toString();
+    const data = await getData(APISTR);
+    const createGrid = () => Object.entries(data).forEach(thumbnail => {
+        const imageID = thumbnail[1].id;
+        let imageURL;
+        let pinModeInterior;
+
+        ApiURL.includes('favourites')
+        ? (imageURL = thumbnail[1].image.url, pinModeInterior == 'unsave' )
+        : imageURL = thumbnail[1].url
+        createCard(imageURL, sectionID, pinModeInterior, imageID);
+    });
+
+    if (typeof data == 'string') {
+        createSpanError(data, sectionID);
+        return;
+    }
+    createGrid();
 }
