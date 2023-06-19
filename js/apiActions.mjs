@@ -21,22 +21,6 @@ export const apiDictionary = (choosePet) => {
     return behaviour;
 }
 
-export function urlBuilder(apiDictionary, action, photoID,) {
-    const dictionary = apiDictionary;
-    const actionLowered = typeof action === 'string' 
-    ? action.toString().toLowerCase()
-    : '';
-
-    let URL;
-    URL = {
-        'random' : dictionary.API_URL + dictionary.RANDOM_SEARCH + '?' + dictionary.QUANTITY + '&' + dictionary.API_KEY,
-        'favourites': dictionary.API_URL + dictionary.FAVOURITES + '?' + dictionary.QUANTITY + '&' + dictionary.API_KEY,
-        'delete': dictionary.API_URL + dictionary.FAVOURITES_DELETE + '?' + dictionary.API_KEY 
-    }
-
-    return URL[actionLowered];
-}
-
 export async function getData(ApiURL) {
     const API = ApiURL;
     const res = await fetch(API);

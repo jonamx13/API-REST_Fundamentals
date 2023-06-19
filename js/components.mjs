@@ -74,14 +74,15 @@ export function createSpanError(dataResult, sectionID) {
 export async function loadRandomGrid(ApiURL, sectionID) {
     const APISTR = ApiURL.toString();
     const data = await getData(APISTR);
+    console.log(APISTR)
     const createGrid = () => Object.entries(data).forEach(thumbnail => {
         const imageID = thumbnail[1].id;
         let imageURL;
         let pinModeInterior;
-
-        ApiURL.includes('favourites')
-        ? (imageURL = thumbnail[1].image.url, pinModeInterior == 'unsave' )
-        : imageURL = thumbnail[1].url
+        
+        APISTR.includes('favourites')
+        ? (imageURL = thumbnail[1].image.url, pinModeInterior = 'unsave')
+        : (imageURL = thumbnail[1].url, pinModeInterior = 'save')
         createCard(imageURL, sectionID, pinModeInterior, imageID);
     });
 

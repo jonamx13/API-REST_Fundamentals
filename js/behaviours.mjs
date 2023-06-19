@@ -1,5 +1,9 @@
+import { apiDictionary } from "./apiActions.mjs";
+
+const dictionary = apiDictionary('dog');
+
 export async function saveFavDogs(id) {
-    const API = urlBuilder('favourites');
+    const API = dictionary.favourites;
     const res = await fetch(API, {
     method: 'POST',
     headers: {
@@ -22,7 +26,7 @@ export async function saveFavDogs(id) {
 
 
 export async function deleteFavDogs(id) {
-    const API = urlBuilder('delete', id);
+    const API = dictionary.delete(id);
     const res = await fetch(API, {
         method: 'DELETE'
     });
