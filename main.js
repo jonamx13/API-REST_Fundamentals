@@ -1,15 +1,16 @@
-let randomDoggos = createSection('Random doggos', true);
-const favouriteDoggos = createSection('Favourite doggos');
-
-const petChoose = {dog: 'dog', cat: 'cat'}; //TODO: pet selector
 const API_URL = 'https://api.thedogapi.com/v1/';
 // Endpoints
 const RANDOM_SEARCH = 'images/search';
 const FAVOURITES =  'favourites'
 const FAVOURITES_DELETE = (id) => `favourites/${id}`;
 // Parameters
-const QUANTITY = 'limit=16'; //TODO: limit selector
 const API_KEY = 'api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
+const QUANTITY = 'limit=16'; //TODO: limit selector
+const petChoose = {dog: 'dog', cat: 'cat'}; //TODO: pet selector
+
+let randomDoggos = createSection('Random doggos', true);
+const favouriteDoggos = createSection('Favourite doggos');
+
 
 
 loadDogRandomGrid('random', randomDoggos);
@@ -91,7 +92,10 @@ function createSpanError(dataResult, sectionID) {
 }
 
 function urlBuilder(action, photoID) {
-    const actionLowered = action.toString().toLowerCase();
+    const actionLowered = typeof action === 'string' 
+    ? action.toString().toLowerCase()
+    : ''
+
     let URL;
     URL = {
         'random' : API_URL + RANDOM_SEARCH + '?' + QUANTITY + '&' + API_KEY,
@@ -181,6 +185,5 @@ async function deleteFavDogs(id) {
         console.log('There was an error: ' + data.message); 
     } else {
         console.log('Dog unsaved');
-        loadDogFavsGrid();
     }
 };
