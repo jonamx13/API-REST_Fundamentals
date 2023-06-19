@@ -74,6 +74,7 @@ button {
 .reload {
     background: var(--blue);
     color: var(--yellow-light);
+    cursor: pointer;
 }
 .dog-grid {
     display: grid;

@@ -1,4 +1,3 @@
-
 const randomDoggos = document.getElementById('random-doggos');
 const favouriteDoggos = document.getElementById('favourite-doggos');
 
@@ -13,12 +12,39 @@ const QUANTITY = 'limit=16'; //TODO: limit selector
 const API_KEY = 'api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
 
 
-loadDogRandomGrid('random', randomDoggos);
-loadDogFavsGrid('favourites', API_KEY);
+// loadDogRandomGrid('random', randomDoggos);
+// loadDogFavsGrid('favourites', API_KEY);
+createSection('Random doggos', true);
 
 //TODO: refresh by card
 function reload() {
     window.location.reload();
+}
+
+// TODO: create section and add reload button only if does reload(false by default)
+function createSection(title, doesReload) {
+    {/* <button class="reload" onClick="reload()">Reload</button>
+    <h2 class="subtitles">Random Doggos</h2>
+    <section id="random-doggos" class="dog-grid">
+
+    </section> */}
+    const body = document.getElementsByTagName('body')
+
+    const titleSection = document.createElement('h2');
+    const sectionContainer = document.createElement('section');
+    
+
+    titleSection.setAttribute('class', 'subtitles');
+    titleSection.innerText = title;
+
+    if(doesReload) {
+        const reloadButton = document.createElement('button');
+        reloadButton.setAttribute('class', 'reload');
+        body.appendChild(reloadButton);
+    }
+
+    
+    body.append(titleSection, sectionContainer);
 }
 
 function createCard(urlDoggo, sectionID, pinMode, cardID) {
@@ -143,7 +169,7 @@ async function saveFavDogs(id) {
     }
 }
 
-// TODO:
+
 async function deleteFavDogs(id) {
     const API = urlBuilder('delete', id);
     const res = await fetch(API, {
@@ -157,5 +183,6 @@ async function deleteFavDogs(id) {
         console.log('There was an error: ' + data.message); 
     } else {
         console.log('Dog unsaved');
+        loadDogFavsGrid();
     }
 };
