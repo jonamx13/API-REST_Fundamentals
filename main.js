@@ -1,5 +1,5 @@
-const randomDoggos = document.getElementById('random-doggos');
-const favouriteDoggos = document.getElementById('favourite-doggos');
+let randomDoggos = createSection('Random doggos', true);
+const favouriteDoggos = createSection('Favourite doggos');
 
 const petChoose = {dog: 'dog', cat: 'cat'}; //TODO: pet selector
 const API_URL = 'https://api.thedogapi.com/v1/';
@@ -12,9 +12,8 @@ const QUANTITY = 'limit=16'; //TODO: limit selector
 const API_KEY = 'api_key=live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
 
 
-// loadDogRandomGrid('random', randomDoggos);
-// loadDogFavsGrid('favourites', API_KEY);
-createSection('Random doggos', true);
+loadDogRandomGrid('random', randomDoggos);
+loadDogFavsGrid('favourites', favouriteDoggos);
 
 //TODO: refresh by card
 function reload() {
@@ -23,28 +22,27 @@ function reload() {
 
 // TODO: create section and add reload button only if does reload(false by default)
 function createSection(title, doesReload) {
-    {/* <button class="reload" onClick="reload()">Reload</button>
-    <h2 class="subtitles">Random Doggos</h2>
-    <section id="random-doggos" class="dog-grid">
-
-    </section> */}
-    const body = document.getElementsByTagName('body')
-
     const titleSection = document.createElement('h2');
     const sectionContainer = document.createElement('section');
+    const titleIntoID = title.split(' ').join('-').toLowerCase()
     
 
     titleSection.setAttribute('class', 'subtitles');
     titleSection.innerText = title;
+    sectionContainer.setAttribute('id', titleIntoID);
+    sectionContainer.setAttribute('class', 'dog-grid'); //TODO: change depending on pet selector
 
     if(doesReload) {
         const reloadButton = document.createElement('button');
+        reloadButton.innerText = 'Reload'
         reloadButton.setAttribute('class', 'reload');
-        body.appendChild(reloadButton);
+        reloadButton.onclick = () => reload(); //TODO: reload just photos
+        document.body.appendChild(reloadButton);
     }
 
-    
-    body.append(titleSection, sectionContainer);
+    document.body.append(titleSection, sectionContainer);
+    return document.getElementById(titleIntoID) //
+
 }
 
 function createCard(urlDoggo, sectionID, pinMode, cardID) {
