@@ -1,6 +1,8 @@
 import { saveFavDogs, deleteFavDogs } from "./behaviours.mjs";
 import { getData } from "./apiActions.mjs";
 
+//TODO: reload function
+export function reload() {}
 export function choosePet() {
     let defaultTitle = 'Doggos';
     const sectionChoose = document.createElement('section');

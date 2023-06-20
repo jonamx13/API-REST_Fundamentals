@@ -3,13 +3,19 @@ import { choosePet, createSection, loadGrid } from './js/components.mjs';
 
 const dictionary = apiDictionary('dog');
 const choosePetHeader = () => choosePet();
-const randomDoggos = async () => createSection('Random doggos', true);
-/* const favouriteDoggos = createSection('Favourite doggos');
-const title = document.getElementById('title-name'); */
+let randomDoggos;
+let favouriteDoggos;
 
-loadGrid(dictionary.random, randomDoggos);
+(function(callback) {
+    randomDoggos = callback('Random doggos', true);
+    loadGrid(dictionary.random, randomDoggos);
+})(createSection);
 
-/* loadGrid(dictionary.favourites, favouriteDoggos); */
+(function(callback) {
+    favouriteDoggos = callback('Favourite doggos', false);
+    loadGrid(dictionary.favourites, favouriteDoggos);
+})(createSection);
+
 
 //TODO: refresh by card
 /* function reload() {
