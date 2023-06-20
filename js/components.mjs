@@ -55,6 +55,12 @@ export function createSection(title, doesReload) {
         reloadButton.setAttribute('class', 'reload');
         reloadButton.onclick = () => reload(); //TODO: reload just photos
         document.body.appendChild(reloadButton);
+
+        //TODO: Reload function
+        function reload() {
+            sectionContainer.innerHTML = ''
+            // createSection(title, doesReload)
+        }
     }
 
     document.body.append(titleSection, sectionContainer);
