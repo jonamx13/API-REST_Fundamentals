@@ -24,8 +24,8 @@ export function choosePet() {
     catButton.innerHTML = '<img src="./assets/cat_button.png" alt="choose cat button">';
 
     //* Toggle titles
-    dogButton.onclick = () => {defaultTitle = 'Doggos'}
-    catButton.onclick = () => {defaultTitle = 'Kitties'}
+    dogButton.onclick = () => {defaultTitle = 'Doggos', console.log(defaultTitle);}
+    catButton.onclick = () => {defaultTitle = 'Kitties', console.log(defaultTitle);}
 
     //! DOM Appending
     buttonsSection.append(
@@ -58,8 +58,7 @@ export function createSection(title, doesReload) {
 
         //TODO: Reload function
         function reload() {
-            sectionContainer.innerHTML = ''
-            // createSection(title, doesReload)
+            window.location.reload();
         }
     }
 
