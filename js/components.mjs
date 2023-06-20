@@ -44,7 +44,7 @@ function createCard(urlDoggo, sectionID, pinMode, cardID) {
 
     //Select pin icon and behaviour
     if (pinMode === 'unsave') {
-        pinSave.innerHTML = '<img src=\"/assets/pin-unsave.svg\" alt="pin icon for saving">';
+        pinSave.innerHTML = '<img src=\"/assets/pin-unsave.svg\" alt="pin icon for unsaving">';
         pinSave.onclick = () => deleteFavDogs(cardID);
     } else {
         pinSave.innerHTML = '<img src=\"/assets/pin-save.svg\" alt="pin icon for saving">';
