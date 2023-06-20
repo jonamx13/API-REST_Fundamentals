@@ -1,6 +1,41 @@
 import { saveFavDogs, deleteFavDogs } from "./behaviours.mjs";
 import { getData } from "./apiActions.mjs";
 
+export function choosePet() {
+    let defaultTitle = 'Doggos';
+    const sectionChoose = document.createElement('section');
+    const question = document.createElement('p');
+    const buttonsSection = document.createElement('section');
+    const dogButton = document.createElement('button');
+    const catButton = document.createElement('button');
+
+    //! Begin DOM setup
+    sectionChoose.setAttribute('id', 'choose-pet');
+    question.innerText = 'What kind of person are you?';
+
+    //* Dog button behaviours
+    dogButton.setAttribute('id', 'dog-button');
+    dogButton.innerHTML = '<img src="./assets/dog_button.png" alt="choose dog button">';
+    
+    //* Cat button behaviours
+    catButton.setAttribute('id', 'cat-button');
+    catButton.innerHTML = '<img src="./assets/cat_button.png" alt="choose cat button">';
+
+    //* Toggle titles
+    dogButton.onclick = () => {defaultTitle = 'Doggos'}
+    catButton.onclick = () => {defaultTitle = 'Kitties'}
+
+    //! DOM Appending
+    buttonsSection.append(
+        dogButton,
+        catButton);
+
+    sectionChoose.append(
+        question,
+        buttonsSection
+    );
+    document.body.appendChild(sectionChoose)
+}
 export function createSection(title, doesReload) {
     const titleSection = document.createElement('h2');
     const sectionContainer = document.createElement('section');
@@ -71,7 +106,7 @@ export function createSpanError(dataResult, sectionID) {
 }
 
 //Grid
-export async function loadRandomGrid(ApiURL, sectionID) {
+export async function loadGrid(ApiURL, sectionID) {
     const APISTR = ApiURL.toString();
     const data = await getData(APISTR);
     console.log(APISTR)
