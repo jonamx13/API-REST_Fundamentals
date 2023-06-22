@@ -63,12 +63,16 @@ export function createSection(title, doesReload) {
     }
 
     document.body.append(titleSection, sectionContainer);
-    return document.getElementById(titleIntoID) //
+    console.log(titleIntoID);
+    return titleIntoID;
 
 }
 
-function createCard(urlDoggo, sectionID, pinMode, cardID) {
-    const doggosSection = sectionID;
+/* class Pet {
+    constructor(urlPet, sectionID)
+} */
+
+function createCard(urlDoggo, pinMode, cardID) {
     const doggoCard = document.createElement('article');
     const doggoContainer = document.createElement('div');
     const imgDoggo = document.createElement('img');
@@ -96,9 +100,9 @@ function createCard(urlDoggo, sectionID, pinMode, cardID) {
     title.innerText = 'Description of this turtle';
     description.innerText = 'This kind of turtle is epic and there are just a few of these living in kings landing and Narnia.';
     
-    doggosSection.appendChild(doggoCard);
     doggoCard.append(doggoContainer, title, description);
     doggoContainer.append(imgDoggo, pinSave);
+    return doggoCard;
 }
 
 export function createSpanError(dataResult, sectionID) {
@@ -116,7 +120,7 @@ export function createSpanError(dataResult, sectionID) {
 export async function loadGrid(ApiURL, sectionID) {
     const APISTR = ApiURL.toString();
     const data = await getData(APISTR);
-    console.log(APISTR)
+    const petSection = document.getElementById(sectionID);
     const createGrid = () => Object.entries(data).forEach(thumbnail => {
         const imageID = thumbnail[1].id;
         let imageURL;
@@ -124,8 +128,8 @@ export async function loadGrid(ApiURL, sectionID) {
         
         APISTR.includes('favourites')
         ? (imageURL = thumbnail[1].image.url, pinModeInterior = 'unsave')
-        : (imageURL = thumbnail[1].url, pinModeInterior = 'save')
-        createCard(imageURL, sectionID, pinModeInterior, imageID);
+        : (imageURL = thumbnail[1].url, pinModeInterior = 'save');
+        petSection.appendChild(createCard(imageURL, pinModeInterior, imageID));
     });
 
     if (typeof data == 'string') {

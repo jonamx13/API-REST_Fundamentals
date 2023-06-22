@@ -6,11 +6,11 @@ const choosePetHeader = () => choosePet();
 let randomDoggos;
 let favouriteDoggos;
 
-choosePetHeader();
+/* choosePetHeader();
 (function(callback) {
     randomDoggos = callback('Random doggos', true);
     loadGrid(dictionary.random, randomDoggos);
-})(createSection);
+})(createSection); */
 
 (function(callback) {
     favouriteDoggos = callback('Favourite doggos', false);
