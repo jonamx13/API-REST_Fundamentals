@@ -128,9 +128,9 @@ export function createSpanError(dataResult, sectionID) {
 }
 
 //Grid
-export async function loadGrid(ApiURL, sectionID) {
-    const APISTR = ApiURL.toString();
-    const data = await getData(APISTR);
+export async function loadGrid(sectionID) {
+    console.log(sectionID);
+    const data = await getData('dog', 'favourites');
     const petSection = document.getElementById(sectionID);
     const createGrid = () => Object.entries(data).forEach(thumbnail => {
         const imageID = thumbnail[1].id;
@@ -144,7 +144,7 @@ export async function loadGrid(ApiURL, sectionID) {
         console.log(petCard);
         petSection.appendChild(petCard.assembleCardElements());
     });
-
+    
     if (typeof data == 'string') {
         createSpanError(data, sectionID);
         return;
