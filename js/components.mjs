@@ -47,7 +47,7 @@ export function createSection(title, doesReload) {
     titleSection.setAttribute('class', 'subtitles');
     titleSection.innerText = title;
     sectionContainer.setAttribute('id', titleIntoID);
-    sectionContainer.setAttribute('class', 'dog-grid'); //TODO: change depending on pet selector
+    sectionContainer.setAttribute('class', 'pet-grid'); //TODO: change depending on pet selector
 
     if(doesReload) {
         const reloadButton = document.createElement('button');
@@ -63,48 +63,59 @@ export function createSection(title, doesReload) {
     }
 
     document.body.append(titleSection, sectionContainer);
-    console.log(titleIntoID);
     return titleIntoID;
 
 }
 
-/* class Pet {
-    constructor(urlPet, sectionID)
-} */
+class Pet {
+    #petCard;
+    #petContainer;
+    #imgPet;
+    #pinSave;
+    #title;
+    #description
+    constructor(petURL, pinMode, cardID) {
+        this.petURL = petURL;
+        this.pinMode = pinMode;
+        this.cardID = cardID;
 
-function createCard(urlDoggo, pinMode, cardID) {
-    const doggoCard = document.createElement('article');
-    const doggoContainer = document.createElement('div');
-    const imgDoggo = document.createElement('img');
-    const pinSave = document.createElement('button');
-    const title = document.createElement('h3');
-    const description = document.createElement('p');
+        this.#petCard = document.createElement('article');
+        this.#petContainer = document.createElement('div');
+        this.#imgPet = document.createElement('img');
+        this.#pinSave = document.createElement('button');
+        this.#title = document.createElement('h3');
+        this.#description = document.createElement('p');
 
-    doggoCard.setAttribute('class', 'doggo-card');
-    doggoContainer.setAttribute('class', 'doggo-container');
-    imgDoggo.setAttribute('class', 'doggo');
-    imgDoggo.setAttribute('alt', 'doggo-picture');
-    pinSave.setAttribute('class', 'pin-save');
-
-    imgDoggo.src = urlDoggo;
-
-    //Select pin icon and behaviour
-    if (pinMode === 'unsave') {
-        pinSave.innerHTML = '<img src=\"/assets/pin-unsave.svg\" alt="pin icon for unsaving">';
-        pinSave.onclick = () => deleteFavDogs(cardID);
-    } else {
-        pinSave.innerHTML = '<img src=\"/assets/pin-save.svg\" alt="pin icon for saving">';
-        pinSave.onclick = () => saveFavDogs(cardID);
     }
-    
-    title.innerText = 'Description of this turtle';
-    description.innerText = 'This kind of turtle is epic and there are just a few of these living in kings landing and Narnia.';
-    
-    doggoCard.append(doggoContainer, title, description);
-    doggoContainer.append(imgDoggo, pinSave);
-    return doggoCard;
-}
 
+    #createCardElements(pinMode) {
+        this.#petCard.setAttribute('class', 'pet-card');
+        this.#petContainer.setAttribute('class', 'pet-container');
+        this.#imgPet.setAttribute('class', 'pet');
+        this.#imgPet.setAttribute('alt', 'pet-picture');
+        this.#imgPet.src = this.petURL;
+
+        this.#pinSave.setAttribute('class', 'pin-save');
+
+        if (pinMode === 'unsave') {
+            this.#pinSave.innerHTML = '<img src=\"/assets/pin-unsave.svg\" alt="pin icon for unsaving">';
+            this.#pinSave.onclick = () => deleteFavDogs(cardID);
+        } else {
+            this.#pinSave.innerHTML = '<img src=\"/assets/pin-save.svg\" alt="pin icon for saving">';
+            this.#pinSave.onclick = () => saveFavDogs(cardID);
+        }
+
+        this.#title.innerText = 'Description of this turtle';
+        this.#description.innerText = 'This kind of turtle is epic and there are just a few of these living in kings landing and Narnia.';
+    }
+
+    assembleCardElements() {
+        this.#createCardElements();
+        this.#petContainer.append(this.#imgPet, this.#pinSave);
+        this.#petCard.append(this.#petContainer, this.#title, this.#description);
+        return this.#petCard;
+    }
+}
 export function createSpanError(dataResult, sectionID) {
     const spanError = document.createElement('span');
     const data = dataResult;
@@ -129,7 +140,9 @@ export async function loadGrid(ApiURL, sectionID) {
         APISTR.includes('favourites')
         ? (imageURL = thumbnail[1].image.url, pinModeInterior = 'unsave')
         : (imageURL = thumbnail[1].url, pinModeInterior = 'save');
-        petSection.appendChild(createCard(imageURL, pinModeInterior, imageID));
+        const petCard = new Pet(imageURL, pinModeInterior, imageID);
+        petSection.appendChild(petCard.assembleCardElements());
+        //petSection.appendChild(createCard(imageURL, pinModeInterior, imageID));
     });
 
     if (typeof data == 'string') {

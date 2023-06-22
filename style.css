@@ -70,25 +70,25 @@ button {
 .subtitles {
     font-size: 3rem;
 }
-.doggo-card {
+.pet-card {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.doggo-card h3 {
+.pet-card h3 {
     font-size: 1.7rem;
 }
-.doggo-card p {
+.pet-card p {
     font-size: 1.7rem;
 }
-.doggo-container {
+.pet-container {
     position: relative;
     width: 20rem;
     height: 20rem;
     margin: 0 auto;
     
 }
-.doggo {
+.pet {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -118,7 +118,7 @@ button {
     color: var(--yellow-light);
     cursor: pointer;
 }
-.dog-grid {
+.pet-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(3rem, 1fr));
     gap: 1rem;
