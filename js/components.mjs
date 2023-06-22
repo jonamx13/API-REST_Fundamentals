@@ -88,7 +88,7 @@ class Pet {
 
     }
 
-    #createCardElements(pinMode) {
+    #createCardElements() {
         this.#petCard.setAttribute('class', 'pet-card');
         this.#petContainer.setAttribute('class', 'pet-container');
         this.#imgPet.setAttribute('class', 'pet');
@@ -97,12 +97,12 @@ class Pet {
 
         this.#pinSave.setAttribute('class', 'pin-save');
 
-        if (pinMode === 'unsave') {
+        if (this.pinMode === 'unsave') {
             this.#pinSave.innerHTML = '<img src=\"/assets/pin-unsave.svg\" alt="pin icon for unsaving">';
-            this.#pinSave.onclick = () => deleteFavDogs(cardID);
+            this.#pinSave.onclick = () => deleteFavDogs(this.cardID);
         } else {
             this.#pinSave.innerHTML = '<img src=\"/assets/pin-save.svg\" alt="pin icon for saving">';
-            this.#pinSave.onclick = () => saveFavDogs(cardID);
+            this.#pinSave.onclick = () => saveFavDogs(this.cardID);
         }
 
         this.#title.innerText = 'Description of this turtle';
@@ -141,6 +141,7 @@ export async function loadGrid(ApiURL, sectionID) {
         ? (imageURL = thumbnail[1].image.url, pinModeInterior = 'unsave')
         : (imageURL = thumbnail[1].url, pinModeInterior = 'save');
         const petCard = new Pet(imageURL, pinModeInterior, imageID);
+        console.log(petCard);
         petSection.appendChild(petCard.assembleCardElements());
     });
 
