@@ -142,7 +142,6 @@ export async function loadGrid(ApiURL, sectionID) {
         : (imageURL = thumbnail[1].url, pinModeInterior = 'save');
         const petCard = new Pet(imageURL, pinModeInterior, imageID);
         petSection.appendChild(petCard.assembleCardElements());
-        //petSection.appendChild(createCard(imageURL, pinModeInterior, imageID));
     });
 
     if (typeof data == 'string') {
