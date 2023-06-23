@@ -2,14 +2,13 @@ import { apiDictionary } from "./apiActions.mjs";
 
 const dictionary = apiDictionary('dog');
 
-
-//TODO: Make this methods work with new getData function
 export async function saveFavDogs(id) {
     const API = dictionary.favourites;
     const res = await fetch(API, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'x-api-key' : dictionary.key,
     },
     body: JSON.stringify({
       image_id: id
@@ -30,7 +29,10 @@ export async function saveFavDogs(id) {
 export async function deleteFavDogs(id) {
     const API = dictionary.delete(id);
     const res = await fetch(API, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'x-api-key' : dictionary.key,
+        }
     });
 
     console.log('Unsave');

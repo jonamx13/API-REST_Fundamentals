@@ -48,16 +48,7 @@ export async function getData(fromPetChoice, behaviour) {
            }
         }
     }
-/*     if(behaviour === 'delete') {
-        API = ApiConstructor.favourites;
-        fetchParams = {
-            method: 'GET',
-            headers: {
-            'content-type': 'application/json',
-            'x-api-key' : KEY
-           }
-        }
-    } */
+
 
     const res = await fetch(API, fetchParams);
     const data = await res.json();
