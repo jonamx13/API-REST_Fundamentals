@@ -1,20 +1,18 @@
-import { apiDictionary, getData } from './js/apiActions.mjs';
 import { choosePet, createSection, loadGrid} from './js/components.mjs';
 
-const dictionary = apiDictionary('dog');
 const choosePetHeader = () => choosePet();
 let randomDoggos;
 let favouriteDoggos;
 
-/* choosePetHeader();
+choosePetHeader();
 (function(callback) {
     randomDoggos = callback('Random doggos', true);
-    loadGrid(dictionary.random, randomDoggos);
-})(createSection); */
+    loadGrid(randomDoggos, 'random');
+})(createSection);
 
 (function(callback) {
     favouriteDoggos = callback('Favourite doggos', false);
-    loadGrid(favouriteDoggos);
+    loadGrid(favouriteDoggos, 'favourites');
 })(createSection);
 
 //TODO: refresh by card

@@ -128,16 +128,14 @@ export function createSpanError(dataResult, sectionID) {
 }
 
 //Grid
-export async function loadGrid(sectionID) {
-    console.log(sectionID);
-    const data = await getData('dog', 'favourites');
+export async function loadGrid(sectionID, behaviour) {
+    const data = await getData('dog', behaviour);
     const petSection = document.getElementById(sectionID);
     const createGrid = () => Object.entries(data.collection).forEach(thumbnail => {
         const imageID = thumbnail[1].id;
         let imageURL;
         let pinModeInterior;
         
-        console.log(thumbnail[1]);
         data.apiStr.includes('favourites')
         ? (imageURL = thumbnail[1].image.url, pinModeInterior = 'unsave')
         : (imageURL = thumbnail[1].url, pinModeInterior = 'save'); 

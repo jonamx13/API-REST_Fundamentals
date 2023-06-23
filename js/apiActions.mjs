@@ -13,8 +13,8 @@ export const apiDictionary = (choosePet) => {
     }
     
     const behaviour = {
-        'random' : dictionary.API_URL + dictionary.RANDOM_SEARCH + '?' + dictionary.QUANTITY + '&' + dictionary.API_KEY,
-        'favourites': dictionary.API_URL + dictionary.FAVOURITES/*  + '?' + dictionary.QUANTITY */,
+        'random' : dictionary.API_URL + dictionary.RANDOM_SEARCH + '?' + dictionary.QUANTITY,
+        'favourites': dictionary.API_URL + dictionary.FAVOURITES + '?' + dictionary.QUANTITY,
         'delete': (id) => dictionary.API_URL + dictionary.FAVOURITES_DELETE(id) + '?' + dictionary.API_KEY,
         'key': dictionary.API_KEY
     }
@@ -22,11 +22,22 @@ export const apiDictionary = (choosePet) => {
     return behaviour;
 }
 
+
 export async function getData(fromPetChoice, behaviour) {
     const ApiConstructor = apiDictionary(fromPetChoice);
     const KEY = ApiConstructor.key;
     let API;
     let fetchParams;
+    if(behaviour === 'random') {
+        API = ApiConstructor.random;
+        fetchParams = {
+            method: 'GET',
+            headers: {
+            'content-type': 'application/json',
+            'x-api-key' : KEY
+           }
+        }
+    }
     if(behaviour === 'favourites') {
         API = ApiConstructor.favourites;
         fetchParams = {
@@ -37,6 +48,16 @@ export async function getData(fromPetChoice, behaviour) {
            }
         }
     }
+/*     if(behaviour === 'delete') {
+        API = ApiConstructor.favourites;
+        fetchParams = {
+            method: 'GET',
+            headers: {
+            'content-type': 'application/json',
+            'x-api-key' : KEY
+           }
+        }
+    } */
 
     const res = await fetch(API, fetchParams);
     const data = await res.json();
