@@ -12,12 +12,10 @@ let favouriteDoggos;
     loadGrid(dictionary.random, randomDoggos);
 })(createSection); */
 
-/* (function(callback) {
+(function(callback) {
     favouriteDoggos = callback('Favourite doggos', false);
     loadGrid(favouriteDoggos);
-})(createSection); */
-
-getData('dog')
+})(createSection);
 
 //TODO: refresh by card
 /* function reload() {

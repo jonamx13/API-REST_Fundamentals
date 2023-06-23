@@ -132,16 +132,17 @@ export async function loadGrid(sectionID) {
     console.log(sectionID);
     const data = await getData('dog', 'favourites');
     const petSection = document.getElementById(sectionID);
-    const createGrid = () => Object.entries(data).forEach(thumbnail => {
+    const createGrid = () => Object.entries(data.collection).forEach(thumbnail => {
         const imageID = thumbnail[1].id;
         let imageURL;
         let pinModeInterior;
         
-        APISTR.includes('favourites')
+        console.log(thumbnail[1]);
+        data.apiStr.includes('favourites')
         ? (imageURL = thumbnail[1].image.url, pinModeInterior = 'unsave')
-        : (imageURL = thumbnail[1].url, pinModeInterior = 'save');
+        : (imageURL = thumbnail[1].url, pinModeInterior = 'save'); 
+        
         const petCard = new Pet(imageURL, pinModeInterior, imageID);
-        console.log(petCard);
         petSection.appendChild(petCard.assembleCardElements());
     });
     
