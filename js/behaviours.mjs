@@ -2,6 +2,8 @@ import { apiDictionary } from "./apiActions.mjs";
 
 const dictionary = apiDictionary('dog');
 
+
+//TODO: Make this methods work with new getData function
 export async function saveFavDogs(id) {
     const API = dictionary.favourites;
     const res = await fetch(API, {
