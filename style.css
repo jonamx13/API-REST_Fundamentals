@@ -71,7 +71,12 @@ button {
     font-size: 3rem;
 }
 .pet-card {
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--yellow-light);
+    border-radius: 1.5rem;
     display: flex;
+
     flex-direction: column;
     align-items: center;
 }
@@ -83,7 +88,7 @@ button {
 }
 .pet-container {
     position: relative;
-    width: 20rem;
+    max-width: 20rem;
     height: 20rem;
     margin: 0 auto;
     
@@ -121,6 +126,7 @@ button {
 .pet-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(3rem, 1fr));
+    justify-items: center;
     gap: 1rem;
     
     margin: 0 auto;
