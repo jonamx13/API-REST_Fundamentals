@@ -3,6 +3,7 @@ import { getData } from "./apiActions.mjs";
 
 //TODO: reload function
 export function reload() {}
+
 export function choosePet() {
     let defaultTitle = 'Doggos';
     const sectionChoose = document.createElement('section');
@@ -44,15 +45,15 @@ export function createSection(title, doesReload) {
     const titleIntoID = title.split(' ').join('-').toLowerCase()
     
 
-    titleSection.setAttribute('class', 'subtitles');
+    titleSection.classList.add('subtitles');
     titleSection.innerText = title;
     sectionContainer.setAttribute('id', titleIntoID);
-    sectionContainer.setAttribute('class', 'pet-grid'); //TODO: change depending on pet selector
+    sectionContainer.classList.add('pet-grid'); //TODO: change depending on pet selector
 
     if(doesReload) {
         const reloadButton = document.createElement('button');
         reloadButton.innerText = 'Reload'
-        reloadButton.setAttribute('class', 'reload');
+        reloadButton.classList.add('reload');
         reloadButton.onclick = () => reload(); //TODO: reload just photos
         document.body.appendChild(reloadButton);
 
@@ -122,7 +123,7 @@ export function createSpanError(dataResult, sectionID) {
     const data = dataResult;
 
         sectionID.removeAttribute('class');
-        spanError.setAttribute('class', 'subtitles');
+        spanError.classList.add('subtitles');
         spanError.innerHTML = data;
         sectionID.appendChild(spanError);
         return;
