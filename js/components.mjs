@@ -89,9 +89,10 @@ class Pet {
     }
 
     #createCardElements() {
-        this.#petCard.setAttribute('class', 'pet-card');
-        this.#petContainer.setAttribute('class', 'pet-container');
-        this.#imgPet.setAttribute('class', 'pet');
+        
+        this.#petCard.classList.add('pet-card');
+        this.#petContainer.className.add('pet-container');
+        this.#imgPet.classList.add('pet');
         this.#imgPet.setAttribute('alt', 'pet-picture');
         this.#imgPet.src = this.petURL;
 
