@@ -91,12 +91,12 @@ class Pet {
     #createCardElements() {
         
         this.#petCard.classList.add('pet-card');
-        this.#petContainer.className.add('pet-container');
+        this.#petContainer.classList.add('pet-container');
         this.#imgPet.classList.add('pet');
         this.#imgPet.setAttribute('alt', 'pet-picture');
         this.#imgPet.src = this.petURL;
 
-        this.#pinSave.setAttribute('class', 'pin-save');
+        this.#pinSave.classList.add('pin-save');
 
         if (this.pinMode === 'unsave') {
             this.#pinSave.innerHTML = '<img src=\"/assets/pin-unsave.svg\" alt="pin icon for unsaving">';
