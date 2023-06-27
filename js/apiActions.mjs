@@ -1,3 +1,4 @@
+
 export const apiDictionary = (choosePet) => {
     const pet = choosePet === 'cat' ? 'cat' : 'dog';
 

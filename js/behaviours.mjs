@@ -1,26 +1,36 @@
 import { apiDictionary } from "./apiActions.mjs";
 
 const dictionary = apiDictionary('dog');
-const API_URL_UPLOAD = 'https://api.thedog.com/v1/images/upload'
+const API_URL_UPLOAD = 'https://api.thedog.com/v1/images/upload';
+
+const apiAxios = axios.create({
+    baseURL : 'https://api.thedog.com/v1',
+});
+
+apiAxios.defaults.headers.common['X-API-KEY'] = 'live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
+
 
 export async function saveFavDogs(id) {
-    const API = dictionary.favourites;
-    const res = await fetch(API, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key' : dictionary.key,
-    },
-    body: JSON.stringify({
-      image_id: id
-    }),
-  });
+    console.log('click');
+    const {data , status} = await apiAxios.post('/favourites', {
+        image_id: id,
+    });
+//     const API = dictionary.favourites;
+//     const res = await fetch(API, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'x-api-key' : dictionary.key,
+//     },
+//     body: JSON.stringify({
+//       image_id: id
+//     }),
+//   });
   
     console.log('Save');
 
-    if (res.status !== 200) {
-        const data = await res.json();
-        console.log('There was an error: ' + data.message); 
+    if (status !== 200) {
+        console.log('There was an error: ' + status + data.message); 
     } else {
         console.log('Dog saved');
     }
