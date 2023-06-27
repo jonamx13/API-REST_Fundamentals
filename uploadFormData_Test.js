@@ -1,3 +1,5 @@
+import { saveFavDogs } from "./js/behaviours.mjs";
+
 const API_URL_UPLOAD = 'https://api.thedog.com/v1/images/upload'
 
 async function uploadPetPhoto() {
@@ -25,6 +27,6 @@ async function uploadPetPhoto() {
         console.log("Doggo picture UPLOADED :)");
         console.log({ data });
         console.log(data.url);
-        // saveFavouriteMichi(data.id) //add this photo to favourites
+        saveFavDogs(data.id) //add this photo to favourites
     }
 }

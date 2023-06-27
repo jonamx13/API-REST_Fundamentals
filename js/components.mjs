@@ -1,4 +1,4 @@
-import { saveFavDogs, deleteFavDogs } from "./behaviours.mjs";
+import { saveFavDogs, deleteFavDogs, uploadPetPhoto } from "./behaviours.mjs";
 import { getData } from "./apiActions.mjs";
 
 //TODO: reload function
@@ -152,3 +152,7 @@ export async function loadGrid(sectionID, behaviour) {
     }
     createGrid();
 }
+
+const uploadButton = document.getElementById('uploadButton');
+
+uploadButton.addEventListener('click', uploadPetPhoto)
