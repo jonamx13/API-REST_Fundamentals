@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,6 +17,54 @@
         </form>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="module" src="./main.js"></script>
+    <script type="module" src="./mainAxios.js"></script>
 </body>
-</html>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+</head>
+
+<body>
+    <h1>Doggos App</h1>
+    <span id="error"></span>
+    <section id="randomDoggos">
+        <h2>Doggos aleatorios</h2>
+        <article>
+            <img id="img1" width="150" alt="Foto perrito aleatorio">
+            <button id="btn1">
+                Guardar doggo en favoritos
+            </button>
+        </article>
+        <article>
+            <img id="img2" width="150" alt="Foto perrito aleatorio">
+            <button id="btn2">
+                Guardar doggo en favoritos
+            </button>
+        </article>
+        <button onclick="loadRandomDoggos()">Recargar</button>
+    </section>
+    <section id="uploadingDoggo">
+        <h2>Sube la foto de tu doggo</h2>
+        <form id="uploadingForm">
+            <input id="file" type="file" name="file" />
+            <button type="button" onclick="uploadDoggoPhoto()">Subit foto de doggo</button>
+        </form>
+    </section>
+    <section id="favoriteDoggos">
+        <h2>Doggos favoritos</h2>
+        <article>
+            <img id="img1" width="150" alt="Foto perrito aleatorio">
+            <button>Sacar al doggo de favoritos</button>
+        </article>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./mainAxios.js"></script>
+</body>

@@ -1,4 +1,10 @@
 
+export const api = axios.create({
+    baseURL: 'https://api.thedogapi.com/v1/'
+});
+
+api.defaults.headers.common['X-API-KEY'] = 'live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
+
 export const apiDictionary = (choosePet) => {
     const pet = choosePet === 'cat' ? 'cat' : 'dog';
 

@@ -5,9 +5,8 @@ const API_URL_UPLOAD = 'https://api.thedog.com/v1/images/upload';
 
 const apiAxios = axios.create({
     baseURL : 'https://api.thedog.com/v1',
+    headers: { 'X-API-KEY' : 'live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0'}
 });
-
-apiAxios.defaults.headers.common['X-API-KEY'] = 'live_Zw2RVsJsCsJVGIm1mI08GbGWnZfS6GQ1LI10VoDslKtUWjmae0uBM6cON3Iy5jG0';
 
 
 export async function saveFavDogs(id) {
